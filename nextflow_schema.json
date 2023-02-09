@@ -70,6 +70,10 @@
                 "skip_remove_mnps": {
                     "type": "boolean",
                     "description": "whether or not to skip remove mnps"
+                },
+                "skip_hard_filtering": {
+                    "type": "boolean",
+                    "description": "Do not perform GATK4 hard filtering"
                 }
             }
         },

@@ -38,7 +38,7 @@ ch_multiqc_custom_methods_description = params.multiqc_methods_description ? fil
 // SUBWORKFLOW: Consisting of a mix of local and nf-core/modules
 //
 include { FASTA_INDICES } from '../subworkflows/local/fasta_indices'
-include { APPLY_GATK4_VARIANTRECALIBRATOR } from '../subworkflows/local/apply_gatk4_variantrecalibrator.nf'
+include { APPLY_GATK4_FILTER } from '../subworkflows/local/apply_gatk4_filter'
 
 /*
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
@@ -71,6 +71,7 @@ workflow VCFFILTER {
         .fromFilePairs(params.input)
         .view()
         .set{ vcfPair }
+
     
     // convert it into meta format: [meta, vcf, idx]
 
@@ -131,12 +132,12 @@ workflow VCFFILTER {
 
 
     //
-    // SUBWORKFLOW: APPLY_GATK4_VARIANTRECALIBRATOR
+    // SUBWORKFLOW: APPLY_GATK4_FILTER
     //
 
-    APPLY_GATK4_VARIANTRECALIBRATOR(
-        vcf_fasta_fai_seqdict
-    )
+    APPLY_GATK4_FILTER(
+            vcf_fasta_fai_seqdict
+        )
 
     //
     // MODULE: MultiQC
